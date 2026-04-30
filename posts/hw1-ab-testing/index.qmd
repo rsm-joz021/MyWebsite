@@ -259,8 +259,8 @@ for ax, n_sim in zip(axes, sample_sizes):
     if n_sim == 25:
         ax.legend(fontsize=9, frameon=True)
 
-fig.suptitle("Sampling Distribution of θ̂ Across Sample Sizes\n(1,000 simulated experiments each)", 
-             fontsize=14, fontweight="bold", y=1.01)
+fig.suptitle("Sampling Distribution of θ̂ Across Sample Sizes\n(1,000 simulated experiments each)",
+             fontsize=14, fontweight="bold", y=1.02)
 plt.tight_layout()
 plt.show()
 ```
@@ -472,3 +472,26 @@ The results are striking. A single, pre-planned test yields a false positive rat
 This is called **p-hacking** or **multiple testing inflation**, and it's one of the most common sources of false findings in A/B testing. The fix isn't to avoid looking at your data — it's to use methods designed for sequential testing, such as **sequential probability ratio tests** or **always-valid p-values**, which maintain proper error rates regardless of when you stop.
 
 The lesson: decide on your sample size and stopping rule *before* you start. Then stick to it.
+
+::: {.callout-warning}
+## Practical Warning: Peeking Is Everywhere
+
+In industry, peeking is extremely common — dashboards update in real time, stakeholders check results daily, and stopping early feels like saving time. Without sequential testing methods, these habits silently inflate false discovery rates. When someone tells you "we found a significant result after three days," always ask: *was the stopping rule pre-registered?*
+:::
+
+---
+
+## Conclusion
+
+This post walked through the core statistical machinery behind a simple A/B test, using simulation to make each concept tangible:
+
+| Concept | Key Insight |
+|---|---|
+| **Law of Large Numbers** | With enough data, the sample difference $\hat{\theta}$ converges reliably to the true effect $\theta = 0.04$. |
+| **Bootstrap** | Resampling the data 1,000 times reconstructs the variability of our estimator without any closed-form formula — and matches the analytical standard error closely. |
+| **Central Limit Theorem** | Even though individual sign-up outcomes are binary, the sampling distribution of $\hat{\theta}$ becomes approximately Normal as $n$ grows — enabling formal inference. |
+| **Hypothesis Testing** | Standardizing $\hat{\theta}$ into a z-statistic lets us compute a p-value under $H_0: \theta = 0$; with $n = 1{,}000$ per group, we correctly detect the 4-percentage-point difference. |
+| **T-test as Regression** | The two-sample test is numerically identical to OLS regression on a group indicator — a unifying insight that opens the door to richer models with covariates and interactions. |
+| **Peeking Problem** | Repeated interim tests inflate the false positive rate well above $\alpha = 0.05$, even when there is no real effect. Pre-register your stopping rule, or use sequential testing methods. |
+
+A/B testing is deceptively simple on the surface — two groups, one metric, one p-value. But as this simulation shows, the validity of that p-value depends on assumptions that are easy to violate (especially around when you stop). Understanding the underlying statistics isn't just academic: it's what separates experiments you can trust from ones that mislead.
