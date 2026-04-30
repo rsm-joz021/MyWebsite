@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "My Page",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "resume.html#title-my-resume",
+    "href": "resume.html#title-my-resume",
+    "title": "My Resume",
+    "section": "title: “My Resume”",
+    "text": "title: “My Resume”\nDownload PDF file. EOF"
+  }
+]

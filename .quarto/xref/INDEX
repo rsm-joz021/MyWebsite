@@ -1,0 +1,20 @@
+{
+  "index.qmd": {
+    "index.html": "be7654f4"
+  },
+  "about.qmd": {
+    "about.html": "c72ace38"
+  },
+  "resume.qmd": {
+    "resume.html": "04776e09"
+  },
+  "project.qmd": {
+    "project.html": "11f6cb99"
+  },
+  "posts/hw1-ab-testing/index.qmd": {
+    "index.html": "de879192"
+  },
+  "blog.qmd": {
+    "blog.html": "9e2010b0"
+  }
+}

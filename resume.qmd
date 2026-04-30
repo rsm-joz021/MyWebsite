@@ -1,0 +1,7 @@
+cat > resume.qmd << 'EOF'
+---
+title: "My Resume"
+---
+
+{{< pdf files/Resume.pdf width=100% height=800 >}}
+EOF

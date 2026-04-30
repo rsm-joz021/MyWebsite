@@ -1,0 +1,13 @@
+---
+title: "Jiayu Li"
+image: "Jocelyn.jpg"
+about:
+  template: jolla
+  links:
+    - icon: envelope
+      href: mailto:jocelynjiayu@gmail.com
+    - icon: linkedin
+      href: https://www.linkedin.com/in/jiayu-li-4ab67133a/
+---
+Welcome to my website!
+---

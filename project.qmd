@@ -1,0 +1,15 @@
+---
+title: "My Projects"
+---
+
+## Data Analysis Project
+
+I used Python to analyze customer behavior and discovered interesting patterns.
+
+## Marketing Campaign
+
+Created a successful social media campaign that increased engagement by 40%.
+
+## Web Development
+
+Built this portfolio website using Quarto!

@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jiayu Li">
+<meta name="dcterms.date" content="2026-04-22">
+
+<title>Replication of Karlan &amp; List (2007) – Jocelyn’s Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4360c678b5099ca041644eb02eaa1bfe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Jocelyn’s Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./project.html"> 
+<span class="menu-text">Project</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#main-analysis" id="toc-main-analysis" class="nav-link" data-scroll-target="#main-analysis">Main Analysis</a>
+  <ul class="collapse">
+  <li><a href="#step-1-balance-check-table-1" id="toc-step-1-balance-check-table-1" class="nav-link" data-scroll-target="#step-1-balance-check-table-1">Step 1 — Balance Check (Table 1)</a></li>
+  <li><a href="#step-2-mean-outcomes-by-experimental-cell-table-2a-panel-a" id="toc-step-2-mean-outcomes-by-experimental-cell-table-2a-panel-a" class="nav-link" data-scroll-target="#step-2-mean-outcomes-by-experimental-cell-table-2a-panel-a">Step 2 — Mean outcomes by experimental cell (Table 2A Panel A)</a></li>
+  <li><a href="#step-3-regression-estimates-table-3-and-table-4-panel-a" id="toc-step-3-regression-estimates-table-3-and-table-4-panel-a" class="nav-link" data-scroll-target="#step-3-regression-estimates-table-3-and-table-4-panel-a">Step 3 — Regression estimates (Table 3 and Table 4 Panel A)</a></li>
+  </ul></li>
+  <li><a href="#something-additional" id="toc-something-additional" class="nav-link" data-scroll-target="#something-additional">Something Additional</a>
+  <ul class="collapse">
+  <li><a href="#visualizing-table-2a-panel-a" id="toc-visualizing-table-2a-panel-a" class="nav-link" data-scroll-target="#visualizing-table-2a-panel-a">Visualizing Table 2A Panel A</a></li>
+  <li><a href="#why-is-this-allowed-to-be-causal" id="toc-why-is-this-allowed-to-be-causal" class="nav-link" data-scroll-target="#why-is-this-allowed-to-be-causal">Why is this allowed to be causal?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Replication of Karlan &amp; List (2007)</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Does Price Matter in Charitable Giving?</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">replication</div>
+    <div class="quarto-category">field experiment</div>
+    <div class="quarto-category">causal inference</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jiayu Li </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Karlan and List (2007, <em>American Economic Review</em>) run one of the largest field experiments ever conducted on charitable giving. They partnered with a U.S. nonprofit civil-liberties organization and mailed 50,083 prior donors a fundraising letter. Two-thirds of recipients were randomly assigned to a <strong>treatment</strong> group whose letter announced that a “concerned fellow member” would <strong>match every dollar they gave</strong>; the remaining one-third (the <strong>control</strong> group) received an otherwise identical letter with no match.</p>
+<p>Within the treatment group they further randomized three features of the match:</p>
+<ul>
+<li><strong>Match ratio</strong> — $1:$1, $2:$1, or $3:$1</li>
+<li><strong>Match threshold (maximum pool)</strong> — $25,000, $50,000, $100,000, or unstated</li>
+<li><strong>Example ask amount</strong> — 1.0×, 1.25×, or 1.5× the recipient’s highest previous contribution</li>
+</ul>
+<p>This design lets them ask two distinct questions. First, <em>does offering any match at all increase giving?</em> Fundraising consultants have long insisted yes, strongly. Second, <em>within match offers, is a larger multiplier more persuasive?</em> The conventional wisdom says yes — a $3:$1 match is supposed to be “richer” and therefore more motivating than a $1:$1 match.</p>
+<p>Their answer to the first question is yes. The match moves both the probability of donating and revenue per solicitation. Their answer to the second is the paper’s most striking finding: <strong>no</strong>. Going from $1:$1 to $2:$1 to $3:$1 produces essentially zero additional effect. The wisdom that richer matches are more persuasive does not survive a proper test.</p>
+<p>Below I replicate the headline findings using the public replication data (N = 50,083 prior donors, of whom 33,396 were assigned to treatment and 16,687 to control). I verify the balance checks in Table 1, reproduce Table 2A Panel A, and re-estimate the regressions in Table 3 and Table 4 Panel A. For the additional section I present a visualization of the result that the original paper only gives in a table, and walk through why a plain OLS regression on randomized treatment is entitled to a causal interpretation.</p>
+</section>
+<section id="main-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="main-analysis">Main Analysis</h2>
+<section id="step-1-balance-check-table-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-balance-check-table-1">Step 1 — Balance Check (Table 1)</h3>
+<p>Before trusting any treatment effect we need to confirm that randomization worked: treatment and control groups should be similar on <strong>pre-treatment</strong> characteristics. Any difference that emerges afterwards is then attributable to the match offer, not to pre-existing differences in who received which letter.</p>
+<p>Below is a subset of the balance table, showing for ten pre-randomization variables the treatment-group mean, the control-group mean, and a Welch two-sample <span class="math inline">\(t\)</span>-test of the difference.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Treat mean</th>
+<th style="text-align: right;">Control mean</th>
+<th style="text-align: right;">Difference</th>
+<th style="text-align: right;">t-stat</th>
+<th style="text-align: right;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Months since last donation</td>
+<td style="text-align: right;">13.012</td>
+<td style="text-align: right;">12.998</td>
+<td style="text-align: right;">+0.014</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.906</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest previous contribution ($)</td>
+<td style="text-align: right;">59.597</td>
+<td style="text-align: right;">58.960</td>
+<td style="text-align: right;">+0.637</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.332</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of prior donations</td>
+<td style="text-align: right;">8.035</td>
+<td style="text-align: right;">8.047</td>
+<td style="text-align: right;">−0.012</td>
+<td style="text-align: right;">−0.11</td>
+<td style="text-align: right;">0.912</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Years since initial donation</td>
+<td style="text-align: right;">6.078</td>
+<td style="text-align: right;">6.136</td>
+<td style="text-align: right;">−0.058</td>
+<td style="text-align: right;">−1.09</td>
+<td style="text-align: right;">0.275</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Female (indicator)</td>
+<td style="text-align: right;">0.275</td>
+<td style="text-align: right;">0.283</td>
+<td style="text-align: right;">−0.008</td>
+<td style="text-align: right;">−1.75</td>
+<td style="text-align: right;">0.080</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Couple (indicator)</td>
+<td style="text-align: right;">0.091</td>
+<td style="text-align: right;">0.093</td>
+<td style="text-align: right;">−0.002</td>
+<td style="text-align: right;">−0.58</td>
+<td style="text-align: right;">0.560</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lives in a red state</td>
+<td style="text-align: right;">0.407</td>
+<td style="text-align: right;">0.399</td>
+<td style="text-align: right;">+0.009</td>
+<td style="text-align: right;">1.88</td>
+<td style="text-align: right;">0.060</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lives in a red county</td>
+<td style="text-align: right;">0.512</td>
+<td style="text-align: right;">0.507</td>
+<td style="text-align: right;">+0.004</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">0.366</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Non-litigation activity (state)</td>
+<td style="text-align: right;">2.485</td>
+<td style="text-align: right;">2.453</td>
+<td style="text-align: right;">+0.032</td>
+<td style="text-align: right;">1.71</td>
+<td style="text-align: right;">0.088</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Court cases (state)</td>
+<td style="text-align: right;">1.499</td>
+<td style="text-align: right;">1.502</td>
+<td style="text-align: right;">−0.004</td>
+<td style="text-align: right;">−0.34</td>
+<td style="text-align: right;">0.733</td>
+</tr>
+</tbody>
+</table>
+<p>None of the ten variables shows a statistically significant difference at the 5% level — exactly what we’d expect from a properly randomized assignment. A linear regression of each variable on the treatment dummy tells the same story (the <span class="math inline">\(t\)</span>-statistic on <code>treatment</code> in a one-variable regression equals the <span class="math inline">\(t\)</span>-statistic from the two-sample test above, up to a small heteroskedasticity correction).</p>
+<p>This is the purpose Karlan and List’s Table 1 serves: not to prove anything substantive, but to demonstrate that any later treatment effect cannot be dismissed as “maybe the treated group was already more generous.” The randomization check passes.</p>
+</section>
+<section id="step-2-mean-outcomes-by-experimental-cell-table-2a-panel-a" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-mean-outcomes-by-experimental-cell-table-2a-panel-a">Step 2 — Mean outcomes by experimental cell (Table 2A Panel A)</h3>
+<p>Now the main experimental fact. For the control group and each match ratio I compute (a) the <strong>response rate</strong> — the share who made any donation within one month, (b) the <strong>unconditional amount</strong> — average dollars given across all recipients, whether or not they gave, and (c) the <strong>conditional amount</strong> — average dollars given restricted to those who did donate.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">Response rate</th>
+<th style="text-align: right;">$ unconditional</th>
+<th style="text-align: right;">$ conditional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">16,687</td>
+<td style="text-align: right;">0.0179</td>
+<td style="text-align: right;">$0.813</td>
+<td style="text-align: right;">$45.54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Treatment (any match)</td>
+<td style="text-align: right;">33,396</td>
+<td style="text-align: right;">0.0220</td>
+<td style="text-align: right;">$0.967</td>
+<td style="text-align: right;">$43.87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;&nbsp;Ratio 1:1</td>
+<td style="text-align: right;">11,133</td>
+<td style="text-align: right;">0.0207</td>
+<td style="text-align: right;">$0.937</td>
+<td style="text-align: right;">$45.14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;&nbsp;Ratio 2:1</td>
+<td style="text-align: right;">11,134</td>
+<td style="text-align: right;">0.0226</td>
+<td style="text-align: right;">$1.026</td>
+<td style="text-align: right;">$45.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;&nbsp;Ratio 3:1</td>
+<td style="text-align: right;">11,129</td>
+<td style="text-align: right;">0.0227</td>
+<td style="text-align: right;">$0.938</td>
+<td style="text-align: right;">$41.25</td>
+</tr>
+</tbody>
+</table>
+<p>These numbers line up with Karlan and List’s Table 2A Panel A to the last decimal. The important pattern is:</p>
+<ul>
+<li><strong>Control vs.&nbsp;any match</strong>: response rate rises from 1.79% to 2.20% — a 22% relative increase. Unconditional revenue per solicitation rises from $0.81 to $0.97 — a 19% increase.</li>
+<li><strong>Within matches</strong>: response rate is essentially flat across 1:1, 2:1, 3:1 (2.07% → 2.26% → 2.27%). The “bigger match ratio = more giving” story gets no support.</li>
+<li><strong>Conditional amount</strong> — how much people give <em>when</em> they give — is actually slightly lower under the match than in control ($43.87 vs $45.54). So the match pulls in more donors but not bigger donations from each.</li>
+</ul>
+<p>A Welch <span class="math inline">\(t\)</span>-test of the treatment vs.&nbsp;control response rate gives <span class="math inline">\(t = 3.21\)</span>, <span class="math inline">\(p = 0.0013\)</span>. The match-vs-no-match effect is significant at roughly the 0.1% level. The within-match comparisons tell a completely different story:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: right;">Mean difference</th>
+<th style="text-align: right;">t-statistic</th>
+<th style="text-align: right;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Treatment vs Control</td>
+<td style="text-align: right;">+0.00418</td>
+<td style="text-align: right;">3.21</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ratio 2:1 vs 1:1</td>
+<td style="text-align: right;">+0.00188</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.335</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ratio 3:1 vs 1:1</td>
+<td style="text-align: right;">+0.00198</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">0.310</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ratio 3:1 vs 2:1</td>
+<td style="text-align: right;">+0.00010</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.960</td>
+</tr>
+</tbody>
+</table>
+<p>All three within-match comparisons return <span class="math inline">\(p\)</span>-values well above any conventional threshold. With over 22,000 observations per comparison this isn’t a power problem — the null effect is genuinely what it looks like.</p>
+</section>
+<section id="step-3-regression-estimates-table-3-and-table-4-panel-a" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-regression-estimates-table-3-and-table-4-panel-a">Step 3 — Regression estimates (Table 3 and Table 4 Panel A)</h3>
+<p>A two-sample <span class="math inline">\(t\)</span>-test is mathematically equivalent to regressing the outcome on a single treatment dummy, so the simple regressions in Karlan and List’s Table 3 and Table 4 tell us what we already know from Table 2A. Their value is in the multi-variable columns, which decompose the treatment effect by the three match features.</p>
+<p>One presentation note: Table 3 is labeled “probit,” but the coefficients printed in the paper are actually raw OLS linear-probability-model coefficients. The marginal effects from an actual probit are numerically almost identical for a binary outcome with a low mean, so the substantive conclusions don’t change. I report OLS below to match what the paper actually prints, and cross-check against the probit marginal effect at the end of this section.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Specification</th>
+<th style="text-align: right;">Coef on treatment</th>
+<th style="text-align: right;">SE</th>
+<th style="text-align: right;">p-value</th>
+<th style="text-align: right;">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Table 3 col 1</strong>: gave ~ treatment</td>
+<td style="text-align: right;">0.0042</td>
+<td style="text-align: right;">0.0013</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">50,083</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Table 3 col 2</strong>: gave ~ treatment + sub-treatments</td>
+<td style="text-align: right;">0.0022</td>
+<td style="text-align: right;">0.0025</td>
+<td style="text-align: right;">0.379</td>
+<td style="text-align: right;">50,083</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Table 4A col 1</strong>: amount ~ treatment</td>
+<td style="text-align: right;">0.1536</td>
+<td style="text-align: right;">0.0826</td>
+<td style="text-align: right;">0.063</td>
+<td style="text-align: right;">50,083</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Table 4A col 2</strong>: amount ~ treatment + sub-treatments</td>
+<td style="text-align: right;">0.1184</td>
+<td style="text-align: right;">0.1507</td>
+<td style="text-align: right;">0.432</td>
+<td style="text-align: right;">50,083</td>
+</tr>
+</tbody>
+</table>
+<p>Comparing to the published values: the paper reports 0.004*** (SE 0.001) for Table 3 col 1 and $0.154* (SE 0.083) for Table 4A col 1. My replication matches to three decimal places.</p>
+<p>The column-2 specifications also confirm the paper’s second finding: none of the sub-treatment indicators (<code>ratio2</code>, <code>ratio3</code>, the three threshold dummies, the two ask-amount dummies) is individually significant. In regression form: once you’re offering a match at all, the specific features of the match don’t move behavior.</p>
+<p>As a sanity check on the probit-vs-OLS question, a probit of <code>gave</code> on <code>treatment</code> gives an average marginal effect of <strong>0.0043</strong> (SE 0.0014) — essentially identical to the OLS coefficient of <strong>0.0042</strong> (SE 0.0013), as expected for a rare-event binary outcome. The paper’s “probit” label is a labeling quirk, not a substantive modeling choice.</p>
+</section>
+</section>
+<section id="something-additional" class="level2">
+<h2 class="anchored" data-anchor-id="something-additional">Something Additional</h2>
+<section id="visualizing-table-2a-panel-a" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-table-2a-panel-a">Visualizing Table 2A Panel A</h3>
+<p>The numerical table above makes the “no effect of match size” finding clear if you stare at it. It’s much more striking in a picture. A bar chart of response rate and revenue per solicitation, with 95% confidence intervals, makes the shape of the result visible at a glance:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figure_1_bars.png" class="img-fluid figure-img"></p>
+<figcaption>Response rate and unconditional revenue per solicitation, by experimental cell. The large gap is from Control to any match; the three match-ratio bars are visually indistinguishable.</figcaption>
+</figure>
+</div>
+<p>The visual makes a substantive point that the table obscures. Fundraising consultants advocate for richer match ratios because intuitively “3× your money” sounds more motivating than “1× your money.” If that intuition were right, we’d expect the three bars on the right to step upward. Instead they are flat, with heavily overlapping confidence intervals. All the action is in the control-to-match step; the match-size step is nothing. A figure communicates this at a glance in a way the table does not.</p>
+<p>A companion plot of the same finding, in effect-size form with 95% CIs, makes the contrast even cleaner:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figure_2_forest.png" class="img-fluid figure-img"></p>
+<figcaption>Difference in response rate between pairs of experimental cells. The any-match-vs-control effect (green) sits well away from zero; all three within-match comparisons (gray) straddle zero.</figcaption>
+</figure>
+</div>
+</section>
+<section id="why-is-this-allowed-to-be-causal" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-this-allowed-to-be-causal">Why is this allowed to be causal?</h3>
+<p>A natural question after seeing “the match raises donations by 19%” is: <em>how do we know this is a causal effect, rather than an artifact of something correlated with who received which letter?</em> This is the question you learn to ask about any observational regression. The short answer is that the randomization does all the heavy lifting, but it’s worth spelling out why.</p>
+<p>In a non-experimental study of matching grants, researchers would observe that some donors give when offered a match and others don’t, and would want to estimate the causal effect of the match. But donors who respond to match offers are probably different from donors who don’t — more generous overall, more price-sensitive, more attentive to their mail. The correlation between “saw a match offer” and “donated” would then mix the true causal effect with all of those selection effects, and we’d have no way to separate them without strong assumptions.</p>
+<p>Randomization cuts this knot. Karlan and List used a computer to assign each donor to treatment or control <strong>before</strong> anyone saw any letter. The treatment and control groups therefore have, in expectation, the <em>same</em> distribution of every variable — generosity, wealth, political leanings, mail-reading habits, anything — both observed and unobserved. We verified this for observed variables in Step 1 and none of the differences was statistically significant. So whatever difference emerges in the outcome afterwards must be attributable to the one thing that systematically differs between the groups: the match offer.</p>
+<p>Formally, this is what makes the regression</p>
+<p><span class="math display">\[\text{gave}_i = \alpha + \beta \cdot \text{treatment}_i + \varepsilon_i\]</span></p>
+<p>identify the causal average treatment effect <span class="math inline">\(E[Y_i(1) - Y_i(0)]\)</span>. In general, OLS gives you a conditional expectation rather than a causal effect; the gap between the two is the “selection into treatment” problem. When the treatment is assigned by coin flip, <span class="math inline">\(\text{treatment}_i\)</span> is independent of <span class="math inline">\(\varepsilon_i\)</span> by construction, the selection problem disappears, and the OLS coefficient <em>is</em> the causal effect. No instrument, no difference-in-differences, no regression discontinuity required — the experimental design substitutes for all of them.</p>
+<p>This is why the 19% revenue boost from the match offer can be read as “the match <strong>caused</strong> a 19% revenue increase in this population,” not merely “revenue was correlated with match offers in these data.” And it is why the null within-match result is credible too: the estimated effect of 2:1 over 1:1 is zero not because of some econometric bias we failed to correct, but because the design rules out such biases.</p>
+<p>The caveat, as always, is <strong>external validity</strong>: this effect was measured on prior donors to one specific politically-oriented U.S. nonprofit in 2005. Whether a 1:1 match would behave the same way for first-time donors, for an environmental charity, or in a different country is a separate empirical question. What the experiment <em>does</em> rigorously establish is the internal validity of the effect in this setting — and that alone was enough to unsettle a long-held piece of fundraising conventional wisdom.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Replication of Karlan &amp; List (2007)"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Does Price Matter in Charitable Giving?"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jiayu Li"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-22</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [replication, field experiment, causal inference]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> Figure_1_bars.png</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Karlan and List (2007, *American Economic Review*) run one of the largest field experiments ever conducted on charitable giving. They partnered with a U.S. nonprofit civil-liberties organization and mailed 50,083 prior donors a fundraising letter. Two-thirds of recipients were randomly assigned to a **treatment** group whose letter announced that a "concerned fellow member" would **match every dollar they gave**; the remaining one-third (the **control** group) received an otherwise identical letter with no match.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Within the treatment group they further randomized three features of the match:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Match ratio** — \$1:\$1, \$2:\$1, or \$3:\$1</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Match threshold (maximum pool)** — \$25,000, \$50,000, \$100,000, or unstated</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Example ask amount** — 1.0×, 1.25×, or 1.5× the recipient's highest previous contribution</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>This design lets them ask two distinct questions. First, *does offering any match at all increase giving?* Fundraising consultants have long insisted yes, strongly. Second, *within match offers, is a larger multiplier more persuasive?* The conventional wisdom says yes — a \$3:\$1 match is supposed to be "richer" and therefore more motivating than a \$1:\$1 match.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Their answer to the first question is yes. The match moves both the probability of donating and revenue per solicitation. Their answer to the second is the paper's most striking finding: **no**. Going from \$1:\$1 to \$2:\$1 to \$3:\$1 produces essentially zero additional effect. The wisdom that richer matches are more persuasive does not survive a proper test.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Below I replicate the headline findings using the public replication data (N = 50,083 prior donors, of whom 33,396 were assigned to treatment and 16,687 to control). I verify the balance checks in Table 1, reproduce Table 2A Panel A, and re-estimate the regressions in Table 3 and Table 4 Panel A. For the additional section I present a visualization of the result that the original paper only gives in a table, and walk through why a plain OLS regression on randomized treatment is entitled to a causal interpretation.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Main Analysis</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 1 — Balance Check (Table 1)</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Before trusting any treatment effect we need to confirm that randomization worked: treatment and control groups should be similar on **pre-treatment** characteristics. Any difference that emerges afterwards is then attributable to the match offer, not to pre-existing differences in who received which letter.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Below is a subset of the balance table, showing for ten pre-randomization variables the treatment-group mean, the control-group mean, and a Welch two-sample $t$-test of the difference.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Treat mean <span class="pp">|</span> Control mean <span class="pp">|</span> Difference <span class="pp">|</span> t-stat <span class="pp">|</span> p-value <span class="pp">|</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|---:|---:|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Months since last donation <span class="pp">|</span> 13.012 <span class="pp">|</span> 12.998 <span class="pp">|</span> +0.014 <span class="pp">|</span> 0.12 <span class="pp">|</span> 0.906 <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Highest previous contribution (\$) <span class="pp">|</span> 59.597 <span class="pp">|</span> 58.960 <span class="pp">|</span> +0.637 <span class="pp">|</span> 0.97 <span class="pp">|</span> 0.332 <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Number of prior donations <span class="pp">|</span> 8.035 <span class="pp">|</span> 8.047 <span class="pp">|</span> −0.012 <span class="pp">|</span> −0.11 <span class="pp">|</span> 0.912 <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Years since initial donation <span class="pp">|</span> 6.078 <span class="pp">|</span> 6.136 <span class="pp">|</span> −0.058 <span class="pp">|</span> −1.09 <span class="pp">|</span> 0.275 <span class="pp">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Female (indicator) <span class="pp">|</span> 0.275 <span class="pp">|</span> 0.283 <span class="pp">|</span> −0.008 <span class="pp">|</span> −1.75 <span class="pp">|</span> 0.080 <span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Couple (indicator) <span class="pp">|</span> 0.091 <span class="pp">|</span> 0.093 <span class="pp">|</span> −0.002 <span class="pp">|</span> −0.58 <span class="pp">|</span> 0.560 <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Lives in a red state <span class="pp">|</span> 0.407 <span class="pp">|</span> 0.399 <span class="pp">|</span> +0.009 <span class="pp">|</span> 1.88 <span class="pp">|</span> 0.060 <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Lives in a red county <span class="pp">|</span> 0.512 <span class="pp">|</span> 0.507 <span class="pp">|</span> +0.004 <span class="pp">|</span> 0.90 <span class="pp">|</span> 0.366 <span class="pp">|</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Non-litigation activity (state) <span class="pp">|</span> 2.485 <span class="pp">|</span> 2.453 <span class="pp">|</span> +0.032 <span class="pp">|</span> 1.71 <span class="pp">|</span> 0.088 <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Court cases (state) <span class="pp">|</span> 1.499 <span class="pp">|</span> 1.502 <span class="pp">|</span> −0.004 <span class="pp">|</span> −0.34 <span class="pp">|</span> 0.733 <span class="pp">|</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>None of the ten variables shows a statistically significant difference at the 5% level — exactly what we'd expect from a properly randomized assignment. A linear regression of each variable on the treatment dummy tells the same story (the $t$-statistic on <span class="in">`treatment`</span> in a one-variable regression equals the $t$-statistic from the two-sample test above, up to a small heteroskedasticity correction).</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>This is the purpose Karlan and List's Table 1 serves: not to prove anything substantive, but to demonstrate that any later treatment effect cannot be dismissed as "maybe the treated group was already more generous." The randomization check passes.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 2 — Mean outcomes by experimental cell (Table 2A Panel A)</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Now the main experimental fact. For the control group and each match ratio I compute (a) the **response rate** — the share who made any donation within one month, (b) the **unconditional amount** — average dollars given across all recipients, whether or not they gave, and (c) the **conditional amount** — average dollars given restricted to those who did donate.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Group <span class="pp">|</span> N <span class="pp">|</span> Response rate <span class="pp">|</span> \$ unconditional <span class="pp">|</span> \$ conditional <span class="pp">|</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|---:|</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Control <span class="pp">|</span> 16,687 <span class="pp">|</span> 0.0179 <span class="pp">|</span> \$0.813 <span class="pp">|</span> \$45.54 <span class="pp">|</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment (any match) <span class="pp">|</span> 33,396 <span class="pp">|</span> 0.0220 <span class="pp">|</span> \$0.967 <span class="pp">|</span> \$43.87 <span class="pp">|</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dv">&amp;nbsp;&amp;nbsp;</span>Ratio 1:1 <span class="pp">|</span> 11,133 <span class="pp">|</span> 0.0207 <span class="pp">|</span> \$0.937 <span class="pp">|</span> \$45.14 <span class="pp">|</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dv">&amp;nbsp;&amp;nbsp;</span>Ratio 2:1 <span class="pp">|</span> 11,134 <span class="pp">|</span> 0.0226 <span class="pp">|</span> \$1.026 <span class="pp">|</span> \$45.34 <span class="pp">|</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dv">&amp;nbsp;&amp;nbsp;</span>Ratio 3:1 <span class="pp">|</span> 11,129 <span class="pp">|</span> 0.0227 <span class="pp">|</span> \$0.938 <span class="pp">|</span> \$41.25 <span class="pp">|</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>These numbers line up with Karlan and List's Table 2A Panel A to the last decimal. The important pattern is:</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Control vs. any match**: response rate rises from 1.79% to 2.20% — a 22% relative increase. Unconditional revenue per solicitation rises from \$0.81 to \$0.97 — a 19% increase.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Within matches**: response rate is essentially flat across 1:1, 2:1, 3:1 (2.07% → 2.26% → 2.27%). The "bigger match ratio = more giving" story gets no support.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Conditional amount** — how much people give *when* they give — is actually slightly lower under the match than in control (\$43.87 vs \$45.54). So the match pulls in more donors but not bigger donations from each.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>A Welch $t$-test of the treatment vs. control response rate gives $t = 3.21$, $p = 0.0013$. The match-vs-no-match effect is significant at roughly the 0.1% level. The within-match comparisons tell a completely different story:</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Comparison <span class="pp">|</span> Mean difference <span class="pp">|</span> t-statistic <span class="pp">|</span> p-value <span class="pp">|</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment vs Control <span class="pp">|</span> +0.00418 <span class="pp">|</span> 3.21 <span class="pp">|</span> 0.001 <span class="pp">|</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Ratio 2:1 vs 1:1 <span class="pp">|</span> +0.00188 <span class="pp">|</span> 0.97 <span class="pp">|</span> 0.335 <span class="pp">|</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Ratio 3:1 vs 1:1 <span class="pp">|</span> +0.00198 <span class="pp">|</span> 1.02 <span class="pp">|</span> 0.310 <span class="pp">|</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Ratio 3:1 vs 2:1 <span class="pp">|</span> +0.00010 <span class="pp">|</span> 0.05 <span class="pp">|</span> 0.960 <span class="pp">|</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>All three within-match comparisons return $p$-values well above any conventional threshold. With over 22,000 observations per comparison this isn't a power problem — the null effect is genuinely what it looks like.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Step 3 — Regression estimates (Table 3 and Table 4 Panel A)</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>A two-sample $t$-test is mathematically equivalent to regressing the outcome on a single treatment dummy, so the simple regressions in Karlan and List's Table 3 and Table 4 tell us what we already know from Table 2A. Their value is in the multi-variable columns, which decompose the treatment effect by the three match features.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>One presentation note: Table 3 is labeled "probit," but the coefficients printed in the paper are actually raw OLS linear-probability-model coefficients. The marginal effects from an actual probit are numerically almost identical for a binary outcome with a low mean, so the substantive conclusions don't change. I report OLS below to match what the paper actually prints, and cross-check against the probit marginal effect at the end of this section.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Specification <span class="pp">|</span> Coef on treatment <span class="pp">|</span> SE <span class="pp">|</span> p-value <span class="pp">|</span> N <span class="pp">|</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|---:|</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Table 3 col 1**: gave ~ treatment <span class="pp">|</span> 0.0042 <span class="pp">|</span> 0.0013 <span class="pp">|</span> 0.002 <span class="pp">|</span> 50,083 <span class="pp">|</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Table 3 col 2**: gave ~ treatment + sub-treatments <span class="pp">|</span> 0.0022 <span class="pp">|</span> 0.0025 <span class="pp">|</span> 0.379 <span class="pp">|</span> 50,083 <span class="pp">|</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Table 4A col 1**: amount ~ treatment <span class="pp">|</span> 0.1536 <span class="pp">|</span> 0.0826 <span class="pp">|</span> 0.063 <span class="pp">|</span> 50,083 <span class="pp">|</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Table 4A col 2**: amount ~ treatment + sub-treatments <span class="pp">|</span> 0.1184 <span class="pp">|</span> 0.1507 <span class="pp">|</span> 0.432 <span class="pp">|</span> 50,083 <span class="pp">|</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>Comparing to the published values: the paper reports 0.004<span class="sc">\*\*\*</span> (SE 0.001) for Table 3 col 1 and \$0.154<span class="sc">\*</span> (SE 0.083) for Table 4A col 1. My replication matches to three decimal places.</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>The column-2 specifications also confirm the paper's second finding: none of the sub-treatment indicators (<span class="in">`ratio2`</span>, <span class="in">`ratio3`</span>, the three threshold dummies, the two ask-amount dummies) is individually significant. In regression form: once you're offering a match at all, the specific features of the match don't move behavior.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>As a sanity check on the probit-vs-OLS question, a probit of <span class="in">`gave`</span> on <span class="in">`treatment`</span> gives an average marginal effect of **0.0043** (SE 0.0014) — essentially identical to the OLS coefficient of **0.0042** (SE 0.0013), as expected for a rare-event binary outcome. The paper's "probit" label is a labeling quirk, not a substantive modeling choice.</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Something Additional</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualizing Table 2A Panel A</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>The numerical table above makes the "no effect of match size" finding clear if you stare at it. It's much more striking in a picture. A bar chart of response rate and revenue per solicitation, with 95% confidence intervals, makes the shape of the result visible at a glance:</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="al">![Response rate and unconditional revenue per solicitation, by experimental cell. The large gap is from Control to any match; the three match-ratio bars are visually indistinguishable.](Figure_1_bars.png)</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>The visual makes a substantive point that the table obscures. Fundraising consultants advocate for richer match ratios because intuitively "3× your money" sounds more motivating than "1× your money." If that intuition were right, we'd expect the three bars on the right to step upward. Instead they are flat, with heavily overlapping confidence intervals. All the action is in the control-to-match step; the match-size step is nothing. A figure communicates this at a glance in a way the table does not.</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>A companion plot of the same finding, in effect-size form with 95% CIs, makes the contrast even cleaner:</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="al">![Difference in response rate between pairs of experimental cells. The any-match-vs-control effect (green) sits well away from zero; all three within-match comparisons (gray) straddle zero.](Figure_2_forest.png)</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why is this allowed to be causal?</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>A natural question after seeing "the match raises donations by 19%" is: *how do we know this is a causal effect, rather than an artifact of something correlated with who received which letter?* This is the question you learn to ask about any observational regression. The short answer is that the randomization does all the heavy lifting, but it's worth spelling out why.</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>In a non-experimental study of matching grants, researchers would observe that some donors give when offered a match and others don't, and would want to estimate the causal effect of the match. But donors who respond to match offers are probably different from donors who don't — more generous overall, more price-sensitive, more attentive to their mail. The correlation between "saw a match offer" and "donated" would then mix the true causal effect with all of those selection effects, and we'd have no way to separate them without strong assumptions.</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>Randomization cuts this knot. Karlan and List used a computer to assign each donor to treatment or control **before** anyone saw any letter. The treatment and control groups therefore have, in expectation, the *same* distribution of every variable — generosity, wealth, political leanings, mail-reading habits, anything — both observed and unobserved. We verified this for observed variables in Step 1 and none of the differences was statistically significant. So whatever difference emerges in the outcome afterwards must be attributable to the one thing that systematically differs between the groups: the match offer.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>Formally, this is what makes the regression</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>$$\text{gave}_i = \alpha + \beta \cdot \text{treatment}_i + \varepsilon_i$$</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>identify the causal average treatment effect $E<span class="co">[</span><span class="ot">Y_i(1) - Y_i(0)</span><span class="co">]</span>$. In general, OLS gives you a conditional expectation rather than a causal effect; the gap between the two is the "selection into treatment" problem. When the treatment is assigned by coin flip, $\text{treatment}_i$ is independent of $\varepsilon_i$ by construction, the selection problem disappears, and the OLS coefficient *is* the causal effect. No instrument, no difference-in-differences, no regression discontinuity required — the experimental design substitutes for all of them.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>This is why the 19% revenue boost from the match offer can be read as "the match **caused** a 19% revenue increase in this population," not merely "revenue was correlated with match offers in these data." And it is why the null within-match result is credible too: the estimated effect of 2:1 over 1:1 is zero not because of some econometric bias we failed to correct, but because the design rules out such biases.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>The caveat, as always, is **external validity**: this effect was measured on prior donors to one specific politically-oriented U.S. nonprofit in 2005. Whether a 1:1 match would behave the same way for first-time donors, for an environmental charity, or in a different country is a separate empirical question. What the experiment *does* rigorously establish is the internal validity of the effect in this setting — and that alone was enough to unsettle a long-held piece of fundraising conventional wisdom.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
