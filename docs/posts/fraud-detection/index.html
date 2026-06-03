@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.13">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jocelyn Li">
+<meta name="dcterms.date" content="2026-05-15">
+
+<title>Credit Card Fraud Detection with Machine Learning – Jocelyn’s Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-ea00d30dd9b950c7ecb6e17bc6ca0835.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a5a451e340dee21cdaef90ff0dd71169.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jocelyn’s Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../project.html"> 
+<span class="menu-text">Project</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a></li>
+  <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The Dataset</a></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a>
+  <ul class="collapse">
+  <li><a href="#class-distribution" id="toc-class-distribution" class="nav-link" data-scroll-target="#class-distribution">Class Distribution</a></li>
+  <li><a href="#transaction-timing" id="toc-transaction-timing" class="nav-link" data-scroll-target="#transaction-timing">Transaction Timing</a></li>
+  <li><a href="#transaction-amount" id="toc-transaction-amount" class="nav-link" data-scroll-target="#transaction-amount">Transaction Amount</a></li>
+  <li><a href="#correlation-with-fraud" id="toc-correlation-with-fraud" class="nav-link" data-scroll-target="#correlation-with-fraud">Correlation with Fraud</a></li>
+  <li><a href="#amount-by-class" id="toc-amount-by-class" class="nav-link" data-scroll-target="#amount-by-class">Amount by Class</a></li>
+  <li><a href="#pca-visualization" id="toc-pca-visualization" class="nav-link" data-scroll-target="#pca-visualization">PCA Visualization</a></li>
+  </ul></li>
+  <li><a href="#data-preprocessing" id="toc-data-preprocessing" class="nav-link" data-scroll-target="#data-preprocessing">Data Preprocessing</a></li>
+  <li><a href="#model-1-logistic-regression" id="toc-model-1-logistic-regression" class="nav-link" data-scroll-target="#model-1-logistic-regression">Model 1: Logistic Regression</a>
+  <ul class="collapse">
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
+  <li><a href="#roc-curve" id="toc-roc-curve" class="nav-link" data-scroll-target="#roc-curve">ROC Curve</a></li>
+  <li><a href="#precisionrecall-curve" id="toc-precisionrecall-curve" class="nav-link" data-scroll-target="#precisionrecall-curve">Precision–Recall Curve</a></li>
+  <li><a href="#predicted-fraud-probability-distribution" id="toc-predicted-fraud-probability-distribution" class="nav-link" data-scroll-target="#predicted-fraud-probability-distribution">Predicted Fraud Probability Distribution</a></li>
+  </ul></li>
+  <li><a href="#model-2-decision-tree" id="toc-model-2-decision-tree" class="nav-link" data-scroll-target="#model-2-decision-tree">Model 2: Decision Tree</a>
+  <ul class="collapse">
+  <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1">Results</a></li>
+  <li><a href="#confusion-matrix-1" id="toc-confusion-matrix-1" class="nav-link" data-scroll-target="#confusion-matrix-1">Confusion Matrix</a></li>
+  <li><a href="#feature-importance" id="toc-feature-importance" class="nav-link" data-scroll-target="#feature-importance">Feature Importance</a></li>
+  <li><a href="#roc-and-pr-curves" id="toc-roc-and-pr-curves" class="nav-link" data-scroll-target="#roc-and-pr-curves">ROC and PR Curves</a></li>
+  </ul></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model Comparison</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Credit Card Fraud Detection with Machine Learning</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">Logistic Regression vs.&nbsp;Decision Tree on a Severely Imbalanced Dataset</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">machine learning</div>
+    <div class="quarto-category">classification</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">data analytics</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jocelyn Li </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
+<p>This project tackles one of the most common real-world machine learning challenges: detecting fraud in a highly imbalanced dataset. Using 284,807 European credit card transactions — of which only <strong>492 (0.17%) are fraudulent</strong> — we compare two classification models and examine what it actually means to “perform well” when the classes are this skewed.</p>
+<p><strong>Key questions:</strong></p>
+<ul>
+<li>How do you evaluate a model when 99.83% of the data belongs to one class?</li>
+<li>How does random undersampling help address class imbalance?</li>
+<li>What are the tradeoffs between Logistic Regression and a Decision Tree for fraud detection?</li>
+</ul>
+<hr>
+</section>
+<section id="the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
+<p>The dataset contains transactions made by European cardholders over two days in September 2013.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>V1–V28</code></td>
+<td style="text-align: left;">PCA-transformed features (original features anonymized for privacy)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Time</code></td>
+<td style="text-align: left;">Seconds elapsed since the first transaction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Amount</code></td>
+<td style="text-align: left;">Transaction amount in euros</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Class</code></td>
+<td style="text-align: left;">0 = legitimate, 1 = fraudulent</td>
+</tr>
+</tbody>
+</table>
+<p>Because the raw features contained sensitive cardholder information, PCA was applied beforehand — we work with the principal components directly, not the original variables. This means we can’t interpret features in plain business terms (e.g., “merchant type”), but we can still train effective models and identify which components matter most.</p>
+<div id="2f4412dd" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"creditcard.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">"Class"</span>].value_counts())</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Fraud rate: </span><span class="sc">{</span>df[<span class="st">'Class'</span>]<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.4f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<pre><code>(284807, 31)
+Class
+0    284315
+1       492
+Fraud rate: 0.1727%</code></pre>
+<p>The class imbalance is extreme. A naive model that predicts “not fraud” for every transaction would achieve <strong>99.83% accuracy</strong> — yet it would miss every single fraudulent transaction. This is why accuracy is a meaningless metric here, and why we need Precision, Recall, F1, and AUC-ROC instead.</p>
+<hr>
+</section>
+<section id="exploratory-data-analysis-eda" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
+<section id="class-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="class-distribution">Class Distribution</h3>
+<div id="a9584907" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">"Class"</span>, data<span class="op">=</span>df)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Class Distribution (0 = Legit, 1 = Fraud)"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="class_dist.png" class="img-fluid figure-img"></p>
+<figcaption>The dataset is severely imbalanced — fraud cases are barely visible.</figcaption>
+</figure>
+</div>
+</section>
+<section id="transaction-timing" class="level3">
+<h3 class="anchored" data-anchor-id="transaction-timing">Transaction Timing</h3>
+<div id="caf8b045" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Time"</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"teal"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Transactions Over Time"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time (seconds)"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="time.png" class="img-fluid figure-img"></p>
+<figcaption>Transaction volume follows a daily rhythm — two peaks (daytime) and two troughs (overnight).</figcaption>
+</figure>
+</div>
+<p>Transactions cluster into two distinct peaks, consistent with daily business-hour patterns across the two-day window. Fraud activity may cluster at specific hours, making <code>Time</code> a potentially informative feature.</p>
+</section>
+<section id="transaction-amount" class="level3">
+<h3 class="anchored" data-anchor-id="transaction-amount">Transaction Amount</h3>
+<div id="8b735411" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Amount"</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"purple"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Transaction Amount Distribution"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Amount (€)"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The amount distribution is heavily right-skewed — most transactions are small, with a long tail of larger amounts. This motivates scaling <code>Amount</code> with a <code>RobustScaler</code> (less sensitive to outliers than <code>StandardScaler</code>).</p>
+</section>
+<section id="correlation-with-fraud" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-with-fraud">Correlation with Fraud</h3>
+<div id="a6abbfdf" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> df.corr()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> corr[[<span class="st">"Class"</span>, <span class="st">"Time"</span>]]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>high_corr <span class="op">=</span> ct[ct.<span class="bu">abs</span>().<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">&gt;</span> threshold]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>high_corr.sort_values(by<span class="op">=</span><span class="st">"Class"</span>, key<span class="op">=</span><span class="kw">lambda</span> x: x.<span class="bu">abs</span>(), ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<pre><code>          Class      Time
+Class  1.000000 -0.012323
+V17   -0.326481 -0.073297
+V14   -0.302544 -0.098757
+V12   -0.260593  0.124348
+V10   -0.216883  0.030617
+V3    -0.192961 -0.419618</code></pre>
+<p><strong>V17</strong> is the single PCA component most correlated with fraud (r = −0.33). Even though 0.33 sounds modest, given the class imbalance, a correlation of this magnitude is quite meaningful. Most high-signal components are <em>negatively</em> correlated with fraud — very negative values of V17, V14, and V12 are a warning sign.</p>
+<div id="b04f4515" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df.corr(), cmap<span class="op">=</span><span class="st">"coolwarm"</span>, center<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="corr_matrix.png" class="img-fluid figure-img"></p>
+<figcaption>Full correlation matrix. Most PCA components are uncorrelated with each other by design, but several correlate meaningfully with Class.</figcaption>
+</figure>
+</div>
+</section>
+<section id="amount-by-class" class="level3">
+<h3 class="anchored" data-anchor-id="amount-by-class">Amount by Class</h3>
+<div id="28d08c67" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"Class"</span>, y<span class="op">=</span><span class="st">"Amount"</span>, data<span class="op">=</span>df, palette<span class="op">=</span><span class="st">"Set2"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">500</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Transaction Amount by Class (Fraud vs. Legitimate)"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="box_plots.png" class="img-fluid figure-img"></p>
+<figcaption>Fraudulent transactions tend to be lower-value on average — though there is substantial overlap.</figcaption>
+</figure>
+</div>
+</section>
+<section id="pca-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="pca-visualization">PCA Visualization</h3>
+<div id="81a11091" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">"Class"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>pca_comp <span class="op">=</span> pca.fit_transform(X)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.scatter(pca_comp[:, <span class="dv">0</span>], pca_comp[:, <span class="dv">1</span>], c<span class="op">=</span>df[<span class="st">"Class"</span>], cmap<span class="op">=</span><span class="st">"coolwarm"</span>, s<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PCA Projection: Fraud (red) vs. Normal (blue)"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pca.png" class="img-fluid figure-img"></p>
+<figcaption>In 2D PCA space, fraud overlaps heavily with normal transactions — no clean linear boundary exists.</figcaption>
+</figure>
+</div>
+<p>The PCA plot confirms that fraud cannot be separated by a simple rule. Fraudulent transactions (red) are scattered throughout the normal transaction cloud — this is why we need probabilistic models that learn subtle, high-dimensional patterns.</p>
+<hr>
+</section>
+</section>
+<section id="data-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h2>
+<p>Before modeling, we standardize <code>Amount</code> and <code>Time</code> (the PCA features V1–V28 are already standardized), then split into train/test sets, and finally apply <strong>random undersampling</strong> to balance the training data.</p>
+<div id="62a94a8c" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> RobustScaler</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale Amount and Time</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>rob_scaler <span class="op">=</span> RobustScaler()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"scaled_amount"</span>] <span class="op">=</span> rob_scaler.fit_transform(df[<span class="st">"Amount"</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"scaled_time"</span>] <span class="op">=</span> rob_scaler.fit_transform(df[<span class="st">"Time"</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">"Amount"</span>, <span class="st">"Time"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">"Class"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Class"</span>]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 80/20 stratified split</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, stratify<span class="op">=</span>y, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Undersample the training set to 50/50 fraud/non-fraud</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>rus <span class="op">=</span> RandomUnderSampler(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>X_train_res, y_train_res <span class="op">=</span> rus.fit_resample(X_train, y_train)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set after undersampling: </span><span class="sc">{</span>X_train_res<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Class balance: </span><span class="sc">{</span>y_train_res<span class="sc">.</span>value_counts()<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>Why undersample?</strong> Without rebalancing, a model trained on 99.83% non-fraud data learns that the safest prediction is always “not fraud.” By reducing the non-fraud training examples to match the fraud count, we force the model to actually learn what distinguishes fraud. Crucially, we <strong>do not</strong> modify the test set — it retains the real-world 0.17% fraud rate so our evaluation reflects actual deployment conditions.</p>
+<hr>
+</section>
+<section id="model-1-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="model-1-logistic-regression">Model 1: Logistic Regression</h2>
+<p>Logistic Regression models the <em>probability</em> of fraud as a sigmoid function of a linear combination of features. It’s a natural starting point for binary classification.</p>
+<div id="2235cd08" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    classification_report, confusion_matrix,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    roc_auc_score, precision_recall_curve, average_precision_score,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    roc_curve</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scale"</span>, StandardScaler()),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"clf"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>pipe.fit(X_train_res, y_train_res)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> pipe.predict(X_test)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>y_proba <span class="op">=</span> pipe.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<pre><code>Confusion Matrix:
+[[55462  1402]
+ [    8    90]]
+
+Classification Report (Class 1 = Fraud):
+              precision    recall  f1-score
+           0     0.9999    0.9753    0.9874
+           1     0.0603    0.9184    0.1132
+
+ROC AUC:  0.9759
+PR AUC:   0.6499</code></pre>
+<p><strong>Interpreting the numbers:</strong></p>
+<ul>
+<li><strong>Recall = 91.8%</strong> — the model catches 90 of the 98 fraudulent transactions. Very good.</li>
+<li><strong>Precision = 6.0%</strong> — of all flagged transactions, only 6% are actually fraud (1,402 false positives).</li>
+<li><strong>ROC AUC = 0.976</strong> — the model ranks fraud above non-fraud 97.6% of the time. Excellent discrimination.</li>
+<li><strong>PR AUC = 0.650</strong> — the precision-recall tradeoff tells a harder story, reflecting the difficulty of the imbalance.</li>
+</ul>
+<p>The high false positive rate is a direct consequence of the class imbalance: even a small false-positive <em>rate</em> translates to thousands of mis-flagged legitimate transactions.</p>
+</section>
+<section id="confusion-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h3>
+<div id="7ea113bb" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Blues"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            xticklabels<span class="op">=</span>[<span class="st">"Predicted 0"</span>, <span class="st">"Predicted 1"</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            yticklabels<span class="op">=</span>[<span class="st">"Actual 0"</span>, <span class="st">"Actual 1"</span>])</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix – Logistic Regression"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="confusion_matrix.png" class="img-fluid figure-img"></p>
+<figcaption>~55k true negatives (top-left), ~1.4k false positives (top-right), 8 missed frauds (bottom-left), 90 caught frauds (bottom-right).</figcaption>
+</figure>
+</div>
+</section>
+<section id="roc-curve" class="level3">
+<h3 class="anchored" data-anchor-id="roc-curve">ROC Curve</h3>
+<div id="3a11d2ae" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(y_test, y_proba)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> roc_auc_score(y_test, y_proba)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f"AUC = </span><span class="sc">{</span>roc_auc<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Random model"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"False Positive Rate"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Positive Rate (Recall)"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curve – Logistic Regression"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="roc_curve.png" class="img-fluid figure-img"></p>
+<figcaption>The ROC curve hugs the top-left corner — strong discrimination between fraud and non-fraud.</figcaption>
+</figure>
+</div>
+</section>
+<section id="precisionrecall-curve" class="level3">
+<h3 class="anchored" data-anchor-id="precisionrecall-curve">Precision–Recall Curve</h3>
+<div id="a6a2e3ac" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>precision, recall, _ <span class="op">=</span> precision_recall_curve(y_test, y_proba)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pr_auc <span class="op">=</span> average_precision_score(y_test, y_proba)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.plot(recall, precision, label<span class="op">=</span><span class="ss">f"AP = </span><span class="sc">{</span>pr_auc<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Recall"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Precision"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Precision–Recall Curve – Logistic Regression"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pr_curve.png" class="img-fluid figure-img"></p>
+<figcaption>As recall increases past ~80%, precision drops sharply — the model must flag many non-fraudulent transactions to catch the last few fraud cases.</figcaption>
+</figure>
+</div>
+<p>The PR curve is more informative than the ROC curve for imbalanced problems because it focuses on the minority class. The steep drop-off shows the fundamental tradeoff a bank faces: catching more fraud inevitably means more false alarms.</p>
+</section>
+<section id="predicted-fraud-probability-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="predicted-fraud-probability-distribution">Predicted Fraud Probability Distribution</h3>
+<div id="7275116a" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>proba_df <span class="op">=</span> pd.DataFrame({<span class="st">"prob"</span>: y_proba, <span class="st">"Class"</span>: y_test.values})</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>proba_df[proba_df[<span class="st">"Class"</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">"prob"</span>], fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"Non-fraud"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>proba_df[proba_df[<span class="st">"Class"</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">"prob"</span>], fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"Fraud"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Fraud Probability Distributions – Logistic Regression"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Probability of Fraud"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="predicted_fraud_distribution.png" class="img-fluid figure-img"></p>
+<figcaption>Fraud scores (orange) shift right relative to non-fraud (blue). The overlap in the middle is where false positives and false negatives come from.</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="model-2-decision-tree" class="level2">
+<h2 class="anchored" data-anchor-id="model-2-decision-tree">Model 2: Decision Tree</h2>
+<p>A Decision Tree makes predictions by learning a hierarchy of simple if/else rules on the feature values. We use <code>max_depth=6</code> to prevent overfitting.</p>
+<div id="e3b20a9f" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>tree.fit(X_train_res, y_train_res)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>y_pred_dt <span class="op">=</span> tree.predict(X_test)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>y_proba_dt <span class="op">=</span> tree.predict_proba(X_test)[:, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="results-1" class="level3">
+<h3 class="anchored" data-anchor-id="results-1">Results</h3>
+<pre><code>Confusion Matrix:
+[[52163  4701]
+ [   10    88]]
+
+Classification Report:
+              precision    recall  f1-score
+           0     1.00      0.92      0.96
+           1     0.02      0.90      0.04
+
+ROC AUC:  0.908</code></pre>
+<p>The Decision Tree achieves <strong>90% recall</strong> (catches 88/98 frauds) — slightly lower than Logistic Regression — but generates far more false positives (4,701 vs.&nbsp;1,402). Its ROC AUC of 0.908 is also lower.</p>
+</section>
+<section id="confusion-matrix-1" class="level3">
+<h3 class="anchored" data-anchor-id="confusion-matrix-1">Confusion Matrix</h3>
+<div id="c612cbe4" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cm_dt <span class="op">=</span> confusion_matrix(y_test, y_pred_dt)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm_dt, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Reds"</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix – Decision Tree"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Label"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Label"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="confusion_matrix2.png" class="img-fluid figure-img"></p>
+<figcaption>The Decision Tree produces 3× more false positives than Logistic Regression (4,701 vs.&nbsp;1,402).</figcaption>
+</figure>
+</div>
+</section>
+<section id="feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="feature-importance">Feature Importance</h3>
+<p>Unlike Logistic Regression, a Decision Tree provides direct feature importance scores — a useful diagnostic.</p>
+<div id="ba8a159e" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> tree.feature_importances_</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> X_test.columns</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>importances[indices][:<span class="dv">10</span>], y<span class="op">=</span>features[indices][:<span class="dv">10</span>], palette<span class="op">=</span><span class="st">"Reds_r"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Feature Importance – Decision Tree (Top 10)"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Importance Score"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Feature"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The top features align with our EDA findings: V14, V17, V12, and V10 — the components most correlated with fraud — drive most of the tree’s decisions.</p>
+</section>
+<section id="roc-and-pr-curves" class="level3">
+<h3 class="anchored" data-anchor-id="roc-and-pr-curves">ROC and PR Curves</h3>
+<div id="c82232f1" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fpr_dt, tpr_dt, _ <span class="op">=</span> roc_curve(y_test, y_proba_dt)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>roc_auc_dt <span class="op">=</span> auc(fpr_dt, tpr_dt)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr_dt, tpr_dt, label<span class="op">=</span><span class="ss">f"AUC = </span><span class="sc">{</span>roc_auc_dt<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">"k--"</span>, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Random model"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curve – Decision Tree"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"False Positive Rate"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Positive Rate"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="roc_curve2.png" class="img-fluid figure-img"></p>
+<figcaption>Decision Tree ROC AUC = 0.908 vs.&nbsp;0.976 for Logistic Regression.</figcaption>
+</figure>
+</div>
+<div id="c34f7c95" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>precision_dt, recall_dt, _ <span class="op">=</span> precision_recall_curve(y_test, y_proba_dt)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.plot(recall_dt, precision_dt)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Precision–Recall Curve – Decision Tree"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Recall"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Precision"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pr_curve2.png" class="img-fluid figure-img"></p>
+<figcaption>The Decision Tree PR curve drops more steeply than Logistic Regression — worse precision at any given recall level.</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="model-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison">Model Comparison</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: right;">Logistic Regression</th>
+<th style="text-align: right;">Decision Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Recall (fraud)</td>
+<td style="text-align: right;"><strong>91.8%</strong></td>
+<td style="text-align: right;">89.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Precision (fraud)</td>
+<td style="text-align: right;">6.0%</td>
+<td style="text-align: right;">1.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">False Positives</td>
+<td style="text-align: right;"><strong>1,402</strong></td>
+<td style="text-align: right;">4,701</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROC AUC</td>
+<td style="text-align: right;"><strong>0.976</strong></td>
+<td style="text-align: right;">0.908</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PR AUC</td>
+<td style="text-align: right;"><strong>0.650</strong></td>
+<td style="text-align: right;">lower</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Logistic Regression outperforms the Decision Tree on every dimension</strong> for this problem.</p>
+<p>The key reasons:</p>
+<ol type="1">
+<li><p><strong>Smoother probability estimates.</strong> Logistic Regression produces calibrated, smooth probability scores. Decision Trees produce bimodal, poorly calibrated probabilities — many fraud cases are either very confidently identified or very confidently missed, with little in between.</p></li>
+<li><p><strong>Better generalization.</strong> Decision Trees easily overfit, especially on imbalanced undersampled data. Even with <code>max_depth=6</code>, the tree generates 3× more false positives.</p></li>
+<li><p><strong>Linear separability in PCA space.</strong> Since PCA components are designed to be uncorrelated and capture maximum variance, the fraud signal is partially captured by linear combinations of these components — exactly what Logistic Regression is built to exploit.</p></li>
+</ol>
+<hr>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ol type="1">
+<li><p><strong>Accuracy is misleading for imbalanced data.</strong> Always report Recall, Precision, and AUC — not just accuracy.</p></li>
+<li><p><strong>Random undersampling is a practical fix.</strong> By training on a balanced 50/50 subset, both models learn to distinguish fraud instead of always predicting the majority class. The test set remains imbalanced to reflect real conditions.</p></li>
+<li><p><strong>High recall at the cost of precision is often the right call for fraud.</strong> Catching 90%+ of fraud, even at the cost of flagging some legitimate transactions, may be worth it if undetected fraud is expensive. The bank decides the threshold based on its cost structure.</p></li>
+<li><p><strong>Logistic Regression is a strong baseline.</strong> Before reaching for complex models (Random Forest, XGBoost, neural networks), a well-tuned Logistic Regression with proper preprocessing often performs surprisingly well.</p></li>
+</ol>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Credit Card Fraud Detection with Machine Learning"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Logistic Regression vs. Decision Tree on a Severely Imbalanced Dataset"</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jocelyn Li"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-05-15</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [machine learning, classification, python, data analytics]</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> roc_curve.png</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">  eval: false</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project Overview</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>This project tackles one of the most common real-world machine learning challenges: detecting fraud in a highly imbalanced dataset. Using 284,807 European credit card transactions — of which only **492 (0.17%) are fraudulent** — we compare two classification models and examine what it actually means to "perform well" when the classes are this skewed.</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>**Key questions:**</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How do you evaluate a model when 99.83% of the data belongs to one class?</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How does random undersampling help address class imbalance?</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What are the tradeoffs between Logistic Regression and a Decision Tree for fraud detection?</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Dataset</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>The dataset contains transactions made by European cardholders over two days in September 2013.</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Feature <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------|:------------|</span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`V1–V28`</span> <span class="pp">|</span> PCA-transformed features (original features anonymized for privacy) <span class="pp">|</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Time`</span> <span class="pp">|</span> Seconds elapsed since the first transaction <span class="pp">|</span></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Amount`</span> <span class="pp">|</span> Transaction amount in euros <span class="pp">|</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Class`</span> <span class="pp">|</span> 0 = legitimate, 1 = fraudulent <span class="pp">|</span></span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>Because the raw features contained sensitive cardholder information, PCA was applied beforehand — we work with the principal components directly, not the original variables. This means we can't interpret features in plain business terms (e.g., "merchant type"), but we can still train effective models and identify which components matter most.</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"creditcard.csv"</span>)</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">"Class"</span>].value_counts())</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Fraud rate: </span><span class="sc">{</span>df[<span class="st">'Class'</span>]<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.4f}</span><span class="ss">%"</span>)</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a><span class="in">(284807, 31)</span></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a><span class="in">Class</span></span>
+<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="in">0    284315</span></span>
+<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a><span class="in">1       492</span></span>
+<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a><span class="in">Fraud rate: 0.1727%</span></span>
+<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a>The class imbalance is extreme. A naive model that predicts "not fraud" for every transaction would achieve **99.83% accuracy** — yet it would miss every single fraudulent transaction. This is why accuracy is a meaningless metric here, and why we need Precision, Recall, F1, and AUC-ROC instead.</span>
+<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exploratory Data Analysis (EDA)</span></span>
+<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Class Distribution</span></span>
+<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">"Class"</span>, data<span class="op">=</span>df)</span>
+<span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Class Distribution (0 = Legit, 1 = Fraud)"</span>)</span>
+<span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-83"><a href="#cb24-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-84"><a href="#cb24-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a><span class="al">![The dataset is severely imbalanced — fraud cases are barely visible.](class_dist.png)</span></span>
+<span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transaction Timing</span></span>
+<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Time"</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"teal"</span>)</span>
+<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Transactions Over Time"</span>)</span>
+<span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time (seconds)"</span>)</span>
+<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a><span class="al">![Transaction volume follows a daily rhythm — two peaks (daytime) and two troughs (overnight).](time.png)</span></span>
+<span id="cb24-101"><a href="#cb24-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a>Transactions cluster into two distinct peaks, consistent with daily business-hour patterns across the two-day window. Fraud activity may cluster at specific hours, making <span class="in">`Time`</span> a potentially informative feature.</span>
+<span id="cb24-103"><a href="#cb24-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transaction Amount</span></span>
+<span id="cb24-105"><a href="#cb24-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-109"><a href="#cb24-109" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Amount"</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"purple"</span>)</span>
+<span id="cb24-111"><a href="#cb24-111" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Transaction Amount Distribution"</span>)</span>
+<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Amount (€)"</span>)</span>
+<span id="cb24-113"><a href="#cb24-113" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-115"><a href="#cb24-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a>The amount distribution is heavily right-skewed — most transactions are small, with a long tail of larger amounts. This motivates scaling <span class="in">`Amount`</span> with a <span class="in">`RobustScaler`</span> (less sensitive to outliers than <span class="in">`StandardScaler`</span>).</span>
+<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-119"><a href="#cb24-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correlation with Fraud</span></span>
+<span id="cb24-120"><a href="#cb24-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-123"><a href="#cb24-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-124"><a href="#cb24-124" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> df.corr()</span>
+<span id="cb24-125"><a href="#cb24-125" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> corr[[<span class="st">"Class"</span>, <span class="st">"Time"</span>]]</span>
+<span id="cb24-126"><a href="#cb24-126" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb24-127"><a href="#cb24-127" aria-hidden="true" tabindex="-1"></a>high_corr <span class="op">=</span> ct[ct.<span class="bu">abs</span>().<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">&gt;</span> threshold]</span>
+<span id="cb24-128"><a href="#cb24-128" aria-hidden="true" tabindex="-1"></a>high_corr.sort_values(by<span class="op">=</span><span class="st">"Class"</span>, key<span class="op">=</span><span class="kw">lambda</span> x: x.<span class="bu">abs</span>(), ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-129"><a href="#cb24-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-130"><a href="#cb24-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-131"><a href="#cb24-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a><span class="in">          Class      Time</span></span>
+<span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a><span class="in">Class  1.000000 -0.012323</span></span>
+<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a><span class="in">V17   -0.326481 -0.073297</span></span>
+<span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a><span class="in">V14   -0.302544 -0.098757</span></span>
+<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a><span class="in">V12   -0.260593  0.124348</span></span>
+<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a><span class="in">V10   -0.216883  0.030617</span></span>
+<span id="cb24-138"><a href="#cb24-138" aria-hidden="true" tabindex="-1"></a><span class="in">V3    -0.192961 -0.419618</span></span>
+<span id="cb24-139"><a href="#cb24-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a>**V17** is the single PCA component most correlated with fraud (r = −0.33). Even though 0.33 sounds modest, given the class imbalance, a correlation of this magnitude is quite meaningful. Most high-signal components are *negatively* correlated with fraud — very negative values of V17, V14, and V12 are a warning sign.</span>
+<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df.corr(), cmap<span class="op">=</span><span class="st">"coolwarm"</span>, center<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix"</span>)</span>
+<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a><span class="al">![Full correlation matrix. Most PCA components are uncorrelated with each other by design, but several correlate meaningfully with Class.](corr_matrix.png)</span></span>
+<span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### Amount by Class</span></span>
+<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"Class"</span>, y<span class="op">=</span><span class="st">"Amount"</span>, data<span class="op">=</span>df, palette<span class="op">=</span><span class="st">"Set2"</span>)</span>
+<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">500</span>)</span>
+<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Transaction Amount by Class (Fraud vs. Legitimate)"</span>)</span>
+<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a><span class="al">![Fraudulent transactions tend to be lower-value on average — though there is substantial overlap.](box_plots.png)</span></span>
+<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### PCA Visualization</span></span>
+<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">"Class"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a>pca_comp <span class="op">=</span> pca.fit_transform(X)</span>
+<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb24-180"><a href="#cb24-180" aria-hidden="true" tabindex="-1"></a>plt.scatter(pca_comp[:, <span class="dv">0</span>], pca_comp[:, <span class="dv">1</span>], c<span class="op">=</span>df[<span class="st">"Class"</span>], cmap<span class="op">=</span><span class="st">"coolwarm"</span>, s<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PCA Projection: Fraud (red) vs. Normal (blue)"</span>)</span>
+<span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a><span class="al">![In 2D PCA space, fraud overlaps heavily with normal transactions — no clean linear boundary exists.](pca.png)</span></span>
+<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a>The PCA plot confirms that fraud cannot be separated by a simple rule. Fraudulent transactions (red) are scattered throughout the normal transaction cloud — this is why we need probabilistic models that learn subtle, high-dimensional patterns.</span>
+<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Preprocessing</span></span>
+<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a>Before modeling, we standardize <span class="in">`Amount`</span> and <span class="in">`Time`</span> (the PCA features V1–V28 are already standardized), then split into train/test sets, and finally apply **random undersampling** to balance the training data.</span>
+<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> RobustScaler</span>
+<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale Amount and Time</span></span>
+<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a>rob_scaler <span class="op">=</span> RobustScaler()</span>
+<span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"scaled_amount"</span>] <span class="op">=</span> rob_scaler.fit_transform(df[<span class="st">"Amount"</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"scaled_time"</span>] <span class="op">=</span> rob_scaler.fit_transform(df[<span class="st">"Time"</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">"Amount"</span>, <span class="st">"Time"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">"Class"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Class"</span>]</span>
+<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a><span class="co"># 80/20 stratified split</span></span>
+<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, stratify<span class="op">=</span>y, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a><span class="co"># Undersample the training set to 50/50 fraud/non-fraud</span></span>
+<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a>rus <span class="op">=</span> RandomUnderSampler(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a>X_train_res, y_train_res <span class="op">=</span> rus.fit_resample(X_train, y_train)</span>
+<span id="cb24-219"><a href="#cb24-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-220"><a href="#cb24-220" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set after undersampling: </span><span class="sc">{</span>X_train_res<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Class balance: </span><span class="sc">{</span>y_train_res<span class="sc">.</span>value_counts()<span class="sc">.</span>to_dict()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-223"><a href="#cb24-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-224"><a href="#cb24-224" aria-hidden="true" tabindex="-1"></a>**Why undersample?** Without rebalancing, a model trained on 99.83% non-fraud data learns that the safest prediction is always "not fraud." By reducing the non-fraud training examples to match the fraud count, we force the model to actually learn what distinguishes fraud. Crucially, we **do not** modify the test set — it retains the real-world 0.17% fraud rate so our evaluation reflects actual deployment conditions.</span>
+<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model 1: Logistic Regression</span></span>
+<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a>Logistic Regression models the *probability* of fraud as a sigmoid function of a linear combination of features. It's a natural starting point for binary classification.</span>
+<span id="cb24-231"><a href="#cb24-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-234"><a href="#cb24-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb24-236"><a href="#cb24-236" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb24-237"><a href="#cb24-237" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
+<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a>    classification_report, confusion_matrix,</span>
+<span id="cb24-240"><a href="#cb24-240" aria-hidden="true" tabindex="-1"></a>    roc_auc_score, precision_recall_curve, average_precision_score,</span>
+<span id="cb24-241"><a href="#cb24-241" aria-hidden="true" tabindex="-1"></a>    roc_curve</span>
+<span id="cb24-242"><a href="#cb24-242" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-243"><a href="#cb24-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scale"</span>, StandardScaler()),</span>
+<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"clf"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>))</span>
+<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a>pipe.fit(X_train_res, y_train_res)</span>
+<span id="cb24-250"><a href="#cb24-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-251"><a href="#cb24-251" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> pipe.predict(X_test)</span>
+<span id="cb24-252"><a href="#cb24-252" aria-hidden="true" tabindex="-1"></a>y_proba <span class="op">=</span> pipe.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb24-253"><a href="#cb24-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-254"><a href="#cb24-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-255"><a href="#cb24-255" aria-hidden="true" tabindex="-1"></a><span class="fu">### Results</span></span>
+<span id="cb24-256"><a href="#cb24-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-257"><a href="#cb24-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-258"><a href="#cb24-258" aria-hidden="true" tabindex="-1"></a><span class="in">Confusion Matrix:</span></span>
+<span id="cb24-259"><a href="#cb24-259" aria-hidden="true" tabindex="-1"></a><span class="in">[[55462  1402]</span></span>
+<span id="cb24-260"><a href="#cb24-260" aria-hidden="true" tabindex="-1"></a><span class="in"> [    8    90]]</span></span>
+<span id="cb24-261"><a href="#cb24-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-262"><a href="#cb24-262" aria-hidden="true" tabindex="-1"></a><span class="in">Classification Report (Class 1 = Fraud):</span></span>
+<span id="cb24-263"><a href="#cb24-263" aria-hidden="true" tabindex="-1"></a><span class="in">              precision    recall  f1-score</span></span>
+<span id="cb24-264"><a href="#cb24-264" aria-hidden="true" tabindex="-1"></a><span class="in">           0     0.9999    0.9753    0.9874</span></span>
+<span id="cb24-265"><a href="#cb24-265" aria-hidden="true" tabindex="-1"></a><span class="in">           1     0.0603    0.9184    0.1132</span></span>
+<span id="cb24-266"><a href="#cb24-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-267"><a href="#cb24-267" aria-hidden="true" tabindex="-1"></a><span class="in">ROC AUC:  0.9759</span></span>
+<span id="cb24-268"><a href="#cb24-268" aria-hidden="true" tabindex="-1"></a><span class="in">PR AUC:   0.6499</span></span>
+<span id="cb24-269"><a href="#cb24-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-270"><a href="#cb24-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-271"><a href="#cb24-271" aria-hidden="true" tabindex="-1"></a>**Interpreting the numbers:**</span>
+<span id="cb24-272"><a href="#cb24-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-273"><a href="#cb24-273" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Recall = 91.8%** — the model catches 90 of the 98 fraudulent transactions. Very good.</span>
+<span id="cb24-274"><a href="#cb24-274" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Precision = 6.0%** — of all flagged transactions, only 6% are actually fraud (1,402 false positives).</span>
+<span id="cb24-275"><a href="#cb24-275" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ROC AUC = 0.976** — the model ranks fraud above non-fraud 97.6% of the time. Excellent discrimination.</span>
+<span id="cb24-276"><a href="#cb24-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PR AUC = 0.650** — the precision-recall tradeoff tells a harder story, reflecting the difficulty of the imbalance.</span>
+<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-278"><a href="#cb24-278" aria-hidden="true" tabindex="-1"></a>The high false positive rate is a direct consequence of the class imbalance: even a small false-positive *rate* translates to thousands of mis-flagged legitimate transactions.</span>
+<span id="cb24-279"><a href="#cb24-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-280"><a href="#cb24-280" aria-hidden="true" tabindex="-1"></a><span class="fu">### Confusion Matrix</span></span>
+<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-284"><a href="#cb24-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-285"><a href="#cb24-285" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb24-286"><a href="#cb24-286" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Blues"</span>,</span>
+<span id="cb24-288"><a href="#cb24-288" aria-hidden="true" tabindex="-1"></a>            xticklabels<span class="op">=</span>[<span class="st">"Predicted 0"</span>, <span class="st">"Predicted 1"</span>],</span>
+<span id="cb24-289"><a href="#cb24-289" aria-hidden="true" tabindex="-1"></a>            yticklabels<span class="op">=</span>[<span class="st">"Actual 0"</span>, <span class="st">"Actual 1"</span>])</span>
+<span id="cb24-290"><a href="#cb24-290" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix – Logistic Regression"</span>)</span>
+<span id="cb24-291"><a href="#cb24-291" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-292"><a href="#cb24-292" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-293"><a href="#cb24-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-294"><a href="#cb24-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-295"><a href="#cb24-295" aria-hidden="true" tabindex="-1"></a><span class="al">![~55k true negatives (top-left), ~1.4k false positives (top-right), 8 missed frauds (bottom-left), 90 caught frauds (bottom-right).](confusion_matrix.png)</span></span>
+<span id="cb24-296"><a href="#cb24-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-297"><a href="#cb24-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### ROC Curve</span></span>
+<span id="cb24-298"><a href="#cb24-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-301"><a href="#cb24-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-302"><a href="#cb24-302" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(y_test, y_proba)</span>
+<span id="cb24-303"><a href="#cb24-303" aria-hidden="true" tabindex="-1"></a>roc_auc <span class="op">=</span> roc_auc_score(y_test, y_proba)</span>
+<span id="cb24-304"><a href="#cb24-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-305"><a href="#cb24-305" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb24-306"><a href="#cb24-306" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f"AUC = </span><span class="sc">{</span>roc_auc<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb24-307"><a href="#cb24-307" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Random model"</span>)</span>
+<span id="cb24-308"><a href="#cb24-308" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"False Positive Rate"</span>)</span>
+<span id="cb24-309"><a href="#cb24-309" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Positive Rate (Recall)"</span>)</span>
+<span id="cb24-310"><a href="#cb24-310" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curve – Logistic Regression"</span>)</span>
+<span id="cb24-311"><a href="#cb24-311" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb24-312"><a href="#cb24-312" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-313"><a href="#cb24-313" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-314"><a href="#cb24-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-315"><a href="#cb24-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-316"><a href="#cb24-316" aria-hidden="true" tabindex="-1"></a><span class="al">![The ROC curve hugs the top-left corner — strong discrimination between fraud and non-fraud.](roc_curve.png)</span></span>
+<span id="cb24-317"><a href="#cb24-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-318"><a href="#cb24-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### Precision–Recall Curve</span></span>
+<span id="cb24-319"><a href="#cb24-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-322"><a href="#cb24-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-323"><a href="#cb24-323" aria-hidden="true" tabindex="-1"></a>precision, recall, _ <span class="op">=</span> precision_recall_curve(y_test, y_proba)</span>
+<span id="cb24-324"><a href="#cb24-324" aria-hidden="true" tabindex="-1"></a>pr_auc <span class="op">=</span> average_precision_score(y_test, y_proba)</span>
+<span id="cb24-325"><a href="#cb24-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-326"><a href="#cb24-326" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb24-327"><a href="#cb24-327" aria-hidden="true" tabindex="-1"></a>plt.plot(recall, precision, label<span class="op">=</span><span class="ss">f"AP = </span><span class="sc">{</span>pr_auc<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb24-328"><a href="#cb24-328" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Recall"</span>)</span>
+<span id="cb24-329"><a href="#cb24-329" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Precision"</span>)</span>
+<span id="cb24-330"><a href="#cb24-330" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Precision–Recall Curve – Logistic Regression"</span>)</span>
+<span id="cb24-331"><a href="#cb24-331" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb24-332"><a href="#cb24-332" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-333"><a href="#cb24-333" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-334"><a href="#cb24-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-335"><a href="#cb24-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-336"><a href="#cb24-336" aria-hidden="true" tabindex="-1"></a><span class="al">![As recall increases past ~80%, precision drops sharply — the model must flag many non-fraudulent transactions to catch the last few fraud cases.](pr_curve.png)</span></span>
+<span id="cb24-337"><a href="#cb24-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-338"><a href="#cb24-338" aria-hidden="true" tabindex="-1"></a>The PR curve is more informative than the ROC curve for imbalanced problems because it focuses on the minority class. The steep drop-off shows the fundamental tradeoff a bank faces: catching more fraud inevitably means more false alarms.</span>
+<span id="cb24-339"><a href="#cb24-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-340"><a href="#cb24-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Predicted Fraud Probability Distribution</span></span>
+<span id="cb24-341"><a href="#cb24-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-344"><a href="#cb24-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-345"><a href="#cb24-345" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-346"><a href="#cb24-346" aria-hidden="true" tabindex="-1"></a>proba_df <span class="op">=</span> pd.DataFrame({<span class="st">"prob"</span>: y_proba, <span class="st">"Class"</span>: y_test.values})</span>
+<span id="cb24-347"><a href="#cb24-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-348"><a href="#cb24-348" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb24-349"><a href="#cb24-349" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>proba_df[proba_df[<span class="st">"Class"</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">"prob"</span>], fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"Non-fraud"</span>)</span>
+<span id="cb24-350"><a href="#cb24-350" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>proba_df[proba_df[<span class="st">"Class"</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">"prob"</span>], fill<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"Fraud"</span>)</span>
+<span id="cb24-351"><a href="#cb24-351" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Fraud Probability Distributions – Logistic Regression"</span>)</span>
+<span id="cb24-352"><a href="#cb24-352" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Probability of Fraud"</span>)</span>
+<span id="cb24-353"><a href="#cb24-353" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb24-354"><a href="#cb24-354" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb24-355"><a href="#cb24-355" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-356"><a href="#cb24-356" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-357"><a href="#cb24-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-358"><a href="#cb24-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-359"><a href="#cb24-359" aria-hidden="true" tabindex="-1"></a><span class="al">![Fraud scores (orange) shift right relative to non-fraud (blue). The overlap in the middle is where false positives and false negatives come from.](predicted_fraud_distribution.png)</span></span>
+<span id="cb24-360"><a href="#cb24-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-361"><a href="#cb24-361" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-362"><a href="#cb24-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-363"><a href="#cb24-363" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model 2: Decision Tree</span></span>
+<span id="cb24-364"><a href="#cb24-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-365"><a href="#cb24-365" aria-hidden="true" tabindex="-1"></a>A Decision Tree makes predictions by learning a hierarchy of simple if/else rules on the feature values. We use <span class="in">`max_depth=6`</span> to prevent overfitting.</span>
+<span id="cb24-366"><a href="#cb24-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-369"><a href="#cb24-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-370"><a href="#cb24-370" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb24-371"><a href="#cb24-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-372"><a href="#cb24-372" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb24-373"><a href="#cb24-373" aria-hidden="true" tabindex="-1"></a>tree.fit(X_train_res, y_train_res)</span>
+<span id="cb24-374"><a href="#cb24-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-375"><a href="#cb24-375" aria-hidden="true" tabindex="-1"></a>y_pred_dt <span class="op">=</span> tree.predict(X_test)</span>
+<span id="cb24-376"><a href="#cb24-376" aria-hidden="true" tabindex="-1"></a>y_proba_dt <span class="op">=</span> tree.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb24-377"><a href="#cb24-377" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-378"><a href="#cb24-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-379"><a href="#cb24-379" aria-hidden="true" tabindex="-1"></a><span class="fu">### Results</span></span>
+<span id="cb24-380"><a href="#cb24-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-381"><a href="#cb24-381" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-382"><a href="#cb24-382" aria-hidden="true" tabindex="-1"></a><span class="in">Confusion Matrix:</span></span>
+<span id="cb24-383"><a href="#cb24-383" aria-hidden="true" tabindex="-1"></a><span class="in">[[52163  4701]</span></span>
+<span id="cb24-384"><a href="#cb24-384" aria-hidden="true" tabindex="-1"></a><span class="in"> [   10    88]]</span></span>
+<span id="cb24-385"><a href="#cb24-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-386"><a href="#cb24-386" aria-hidden="true" tabindex="-1"></a><span class="in">Classification Report:</span></span>
+<span id="cb24-387"><a href="#cb24-387" aria-hidden="true" tabindex="-1"></a><span class="in">              precision    recall  f1-score</span></span>
+<span id="cb24-388"><a href="#cb24-388" aria-hidden="true" tabindex="-1"></a><span class="in">           0     1.00      0.92      0.96</span></span>
+<span id="cb24-389"><a href="#cb24-389" aria-hidden="true" tabindex="-1"></a><span class="in">           1     0.02      0.90      0.04</span></span>
+<span id="cb24-390"><a href="#cb24-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-391"><a href="#cb24-391" aria-hidden="true" tabindex="-1"></a><span class="in">ROC AUC:  0.908</span></span>
+<span id="cb24-392"><a href="#cb24-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-393"><a href="#cb24-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-394"><a href="#cb24-394" aria-hidden="true" tabindex="-1"></a>The Decision Tree achieves **90% recall** (catches 88/98 frauds) — slightly lower than Logistic Regression — but generates far more false positives (4,701 vs. 1,402). Its ROC AUC of 0.908 is also lower.</span>
+<span id="cb24-395"><a href="#cb24-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-396"><a href="#cb24-396" aria-hidden="true" tabindex="-1"></a><span class="fu">### Confusion Matrix</span></span>
+<span id="cb24-397"><a href="#cb24-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-400"><a href="#cb24-400" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-401"><a href="#cb24-401" aria-hidden="true" tabindex="-1"></a>cm_dt <span class="op">=</span> confusion_matrix(y_test, y_pred_dt)</span>
+<span id="cb24-402"><a href="#cb24-402" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb24-403"><a href="#cb24-403" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm_dt, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Reds"</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-404"><a href="#cb24-404" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix – Decision Tree"</span>)</span>
+<span id="cb24-405"><a href="#cb24-405" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Label"</span>)</span>
+<span id="cb24-406"><a href="#cb24-406" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Label"</span>)</span>
+<span id="cb24-407"><a href="#cb24-407" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-408"><a href="#cb24-408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-409"><a href="#cb24-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-410"><a href="#cb24-410" aria-hidden="true" tabindex="-1"></a><span class="al">![The Decision Tree produces 3× more false positives than Logistic Regression (4,701 vs. 1,402).](confusion_matrix2.png)</span></span>
+<span id="cb24-411"><a href="#cb24-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-412"><a href="#cb24-412" aria-hidden="true" tabindex="-1"></a><span class="fu">### Feature Importance</span></span>
+<span id="cb24-413"><a href="#cb24-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-414"><a href="#cb24-414" aria-hidden="true" tabindex="-1"></a>Unlike Logistic Regression, a Decision Tree provides direct feature importance scores — a useful diagnostic.</span>
+<span id="cb24-415"><a href="#cb24-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-418"><a href="#cb24-418" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-419"><a href="#cb24-419" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> tree.feature_importances_</span>
+<span id="cb24-420"><a href="#cb24-420" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.argsort(importances)[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-421"><a href="#cb24-421" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> X_test.columns</span>
+<span id="cb24-422"><a href="#cb24-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-423"><a href="#cb24-423" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb24-424"><a href="#cb24-424" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>importances[indices][:<span class="dv">10</span>], y<span class="op">=</span>features[indices][:<span class="dv">10</span>], palette<span class="op">=</span><span class="st">"Reds_r"</span>)</span>
+<span id="cb24-425"><a href="#cb24-425" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Feature Importance – Decision Tree (Top 10)"</span>)</span>
+<span id="cb24-426"><a href="#cb24-426" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Importance Score"</span>)</span>
+<span id="cb24-427"><a href="#cb24-427" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Feature"</span>)</span>
+<span id="cb24-428"><a href="#cb24-428" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb24-429"><a href="#cb24-429" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-430"><a href="#cb24-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-431"><a href="#cb24-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-432"><a href="#cb24-432" aria-hidden="true" tabindex="-1"></a>The top features align with our EDA findings: V14, V17, V12, and V10 — the components most correlated with fraud — drive most of the tree's decisions.</span>
+<span id="cb24-433"><a href="#cb24-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-434"><a href="#cb24-434" aria-hidden="true" tabindex="-1"></a><span class="fu">### ROC and PR Curves</span></span>
+<span id="cb24-435"><a href="#cb24-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-438"><a href="#cb24-438" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-439"><a href="#cb24-439" aria-hidden="true" tabindex="-1"></a>fpr_dt, tpr_dt, _ <span class="op">=</span> roc_curve(y_test, y_proba_dt)</span>
+<span id="cb24-440"><a href="#cb24-440" aria-hidden="true" tabindex="-1"></a>roc_auc_dt <span class="op">=</span> auc(fpr_dt, tpr_dt)</span>
+<span id="cb24-441"><a href="#cb24-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-442"><a href="#cb24-442" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb24-443"><a href="#cb24-443" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr_dt, tpr_dt, label<span class="op">=</span><span class="ss">f"AUC = </span><span class="sc">{</span>roc_auc_dt<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb24-444"><a href="#cb24-444" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">"k--"</span>, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Random model"</span>)</span>
+<span id="cb24-445"><a href="#cb24-445" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curve – Decision Tree"</span>)</span>
+<span id="cb24-446"><a href="#cb24-446" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"False Positive Rate"</span>)</span>
+<span id="cb24-447"><a href="#cb24-447" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Positive Rate"</span>)</span>
+<span id="cb24-448"><a href="#cb24-448" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb24-449"><a href="#cb24-449" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb24-450"><a href="#cb24-450" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-451"><a href="#cb24-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-452"><a href="#cb24-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-453"><a href="#cb24-453" aria-hidden="true" tabindex="-1"></a><span class="al">![Decision Tree ROC AUC = 0.908 vs. 0.976 for Logistic Regression.](roc_curve2.png)</span></span>
+<span id="cb24-454"><a href="#cb24-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-457"><a href="#cb24-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb24-458"><a href="#cb24-458" aria-hidden="true" tabindex="-1"></a>precision_dt, recall_dt, _ <span class="op">=</span> precision_recall_curve(y_test, y_proba_dt)</span>
+<span id="cb24-459"><a href="#cb24-459" aria-hidden="true" tabindex="-1"></a>plt.plot(recall_dt, precision_dt)</span>
+<span id="cb24-460"><a href="#cb24-460" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Precision–Recall Curve – Decision Tree"</span>)</span>
+<span id="cb24-461"><a href="#cb24-461" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Recall"</span>)</span>
+<span id="cb24-462"><a href="#cb24-462" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Precision"</span>)</span>
+<span id="cb24-463"><a href="#cb24-463" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb24-464"><a href="#cb24-464" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-465"><a href="#cb24-465" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-466"><a href="#cb24-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-467"><a href="#cb24-467" aria-hidden="true" tabindex="-1"></a><span class="al">![The Decision Tree PR curve drops more steeply than Logistic Regression — worse precision at any given recall level.](pr_curve2.png)</span></span>
+<span id="cb24-468"><a href="#cb24-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-469"><a href="#cb24-469" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-470"><a href="#cb24-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-471"><a href="#cb24-471" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Comparison</span></span>
+<span id="cb24-472"><a href="#cb24-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-473"><a href="#cb24-473" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Metric <span class="pp">|</span> Logistic Regression <span class="pp">|</span> Decision Tree <span class="pp">|</span></span>
+<span id="cb24-474"><a href="#cb24-474" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-------|--------------------:|-------------:|</span></span>
+<span id="cb24-475"><a href="#cb24-475" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Recall (fraud) <span class="pp">|</span> **91.8%** <span class="pp">|</span> 89.8% <span class="pp">|</span></span>
+<span id="cb24-476"><a href="#cb24-476" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Precision (fraud) <span class="pp">|</span> 6.0% <span class="pp">|</span> 1.8% <span class="pp">|</span></span>
+<span id="cb24-477"><a href="#cb24-477" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> False Positives <span class="pp">|</span> **1,402** <span class="pp">|</span> 4,701 <span class="pp">|</span></span>
+<span id="cb24-478"><a href="#cb24-478" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ROC AUC <span class="pp">|</span> **0.976** <span class="pp">|</span> 0.908 <span class="pp">|</span></span>
+<span id="cb24-479"><a href="#cb24-479" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PR AUC <span class="pp">|</span> **0.650** <span class="pp">|</span> lower <span class="pp">|</span></span>
+<span id="cb24-480"><a href="#cb24-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-481"><a href="#cb24-481" aria-hidden="true" tabindex="-1"></a>**Logistic Regression outperforms the Decision Tree on every dimension** for this problem.</span>
+<span id="cb24-482"><a href="#cb24-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-483"><a href="#cb24-483" aria-hidden="true" tabindex="-1"></a>The key reasons:</span>
+<span id="cb24-484"><a href="#cb24-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-485"><a href="#cb24-485" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Smoother probability estimates.** Logistic Regression produces calibrated, smooth probability scores. Decision Trees produce bimodal, poorly calibrated probabilities — many fraud cases are either very confidently identified or very confidently missed, with little in between.</span>
+<span id="cb24-486"><a href="#cb24-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-487"><a href="#cb24-487" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Better generalization.** Decision Trees easily overfit, especially on imbalanced undersampled data. Even with <span class="in">`max_depth=6`</span>, the tree generates 3× more false positives.</span>
+<span id="cb24-488"><a href="#cb24-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-489"><a href="#cb24-489" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Linear separability in PCA space.** Since PCA components are designed to be uncorrelated and capture maximum variance, the fraud signal is partially captured by linear combinations of these components — exactly what Logistic Regression is built to exploit.</span>
+<span id="cb24-490"><a href="#cb24-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-491"><a href="#cb24-491" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb24-492"><a href="#cb24-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-493"><a href="#cb24-493" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb24-494"><a href="#cb24-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-495"><a href="#cb24-495" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Accuracy is misleading for imbalanced data.** Always report Recall, Precision, and AUC — not just accuracy.</span>
+<span id="cb24-496"><a href="#cb24-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-497"><a href="#cb24-497" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Random undersampling is a practical fix.** By training on a balanced 50/50 subset, both models learn to distinguish fraud instead of always predicting the majority class. The test set remains imbalanced to reflect real conditions.</span>
+<span id="cb24-498"><a href="#cb24-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-499"><a href="#cb24-499" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**High recall at the cost of precision is often the right call for fraud.** Catching 90%+ of fraud, even at the cost of flagging some legitimate transactions, may be worth it if undetected fraud is expensive. The bank decides the threshold based on its cost structure.</span>
+<span id="cb24-500"><a href="#cb24-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-501"><a href="#cb24-501" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Logistic Regression is a strong baseline.** Before reaching for complex models (Random Forest, XGBoost, neural networks), a well-tuned Logistic Regression with proper preprocessing often performs surprisingly well.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

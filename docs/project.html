@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.13">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>My Projects – Jocelyn’s Portfolio</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -35,14 +32,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-ea00d30dd9b950c7ecb6e17bc6ca0835.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4360c678b5099ca041644eb02eaa1bfe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-a5a451e340dee21cdaef90ff0dd71169.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -128,8 +126,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-analysis-project" id="toc-data-analysis-project" class="nav-link active" data-scroll-target="#data-analysis-project">Data Analysis Project</a></li>
-  <li><a href="#marketing-campaign" id="toc-marketing-campaign" class="nav-link" data-scroll-target="#marketing-campaign">Marketing Campaign</a></li>
+  <li><a href="#data-analytics" id="toc-data-analytics" class="nav-link active" data-scroll-target="#data-analytics">Data Analytics</a>
+  <ul class="collapse">
+  <li><a href="#credit-card-fraud-detection-with-machine-learning" id="toc-credit-card-fraud-detection-with-machine-learning" class="nav-link" data-scroll-target="#credit-card-fraud-detection-with-machine-learning">Credit Card Fraud Detection with Machine Learning</a></li>
+  </ul></li>
+  <li><a href="#marketing-analytics" id="toc-marketing-analytics" class="nav-link" data-scroll-target="#marketing-analytics">Marketing Analytics</a>
+  <ul class="collapse">
+  <li><a href="#ab-testing-a-call-to-action" id="toc-ab-testing-a-call-to-action" class="nav-link" data-scroll-target="#ab-testing-a-call-to-action">A/B Testing a Call to Action</a></li>
+  </ul></li>
   <li><a href="#web-development" id="toc-web-development" class="nav-link" data-scroll-target="#web-development">Web Development</a></li>
   </ul>
 </nav>
@@ -156,17 +160,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="data-analysis-project" class="level2">
-<h2 class="anchored" data-anchor-id="data-analysis-project">Data Analysis Project</h2>
-<p>I used Python to analyze customer behavior and discovered interesting patterns.</p>
+<section id="data-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="data-analytics">Data Analytics</h2>
+<section id="credit-card-fraud-detection-with-machine-learning" class="level3">
+<h3 class="anchored" data-anchor-id="credit-card-fraud-detection-with-machine-learning"><a href="./posts/fraud-detection/index.html">Credit Card Fraud Detection with Machine Learning</a></h3>
+<p><strong>Tools:</strong> Python · scikit-learn · imbalanced-learn · pandas · seaborn</p>
+<p>Analyzed 284,807 European credit card transactions to detect fraud in a severely imbalanced dataset (only 0.17% fraud). Applied random undersampling to address class imbalance, then compared <strong>Logistic Regression</strong> and <strong>Decision Tree</strong> classifiers using Precision, Recall, ROC AUC, and Precision-Recall AUC.</p>
+<p>Key findings: Logistic Regression achieved ROC AUC = 0.976 and caught 91.8% of fraudulent transactions, significantly outperforming the Decision Tree (ROC AUC = 0.908). PCA-transformed features (V14, V17, V12) were the strongest predictors of fraud.</p>
+<hr>
 </section>
-<section id="marketing-campaign" class="level2">
-<h2 class="anchored" data-anchor-id="marketing-campaign">Marketing Campaign</h2>
-<p>Created a successful social media campaign that increased engagement by 40%.</p>
+</section>
+<section id="marketing-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="marketing-analytics">Marketing Analytics</h2>
+<section id="ab-testing-a-call-to-action" class="level3">
+<h3 class="anchored" data-anchor-id="ab-testing-a-call-to-action">A/B Testing a Call to Action</h3>
+<p><strong>Tools:</strong> Python · statsmodels · scipy</p>
+<p>Replicated Karlan &amp; List (2007) — a large-scale field experiment on charitable giving — to examine whether donation matching ratios affect donor behavior. Found that <em>any</em> match offer increases response rates by ~22%, but a 3:1 match is no more effective than a 1:1 match.</p>
+<hr>
+</section>
 </section>
 <section id="web-development" class="level2">
 <h2 class="anchored" data-anchor-id="web-development">Web Development</h2>
-<p>Built this portfolio website using Quarto!</p>
+<p>Built this portfolio website using <a href="https://quarto.org">Quarto</a>.</p>
 
 
 </section>

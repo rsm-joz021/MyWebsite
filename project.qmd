@@ -2,14 +2,28 @@
 title: "My Projects"
 ---
 
-## Data Analysis Project
+## Data Analytics
 
-I used Python to analyze customer behavior and discovered interesting patterns.
+### [Credit Card Fraud Detection with Machine Learning](posts/fraud-detection/index.qmd)
 
-## Marketing Campaign
+**Tools:** Python · scikit-learn · imbalanced-learn · pandas · seaborn
 
-Created a successful social media campaign that increased engagement by 40%.
+Analyzed 284,807 European credit card transactions to detect fraud in a severely imbalanced dataset (only 0.17% fraud). Applied random undersampling to address class imbalance, then compared **Logistic Regression** and **Decision Tree** classifiers using Precision, Recall, ROC AUC, and Precision-Recall AUC.
+
+Key findings: Logistic Regression achieved ROC AUC = 0.976 and caught 91.8% of fraudulent transactions, significantly outperforming the Decision Tree (ROC AUC = 0.908). PCA-transformed features (V14, V17, V12) were the strongest predictors of fraud.
+
+---
+
+## Marketing Analytics
+
+### A/B Testing a Call to Action
+
+**Tools:** Python · statsmodels · scipy
+
+Replicated Karlan & List (2007) — a large-scale field experiment on charitable giving — to examine whether donation matching ratios affect donor behavior. Found that *any* match offer increases response rates by ~22%, but a 3:1 match is no more effective than a 1:1 match.
+
+---
 
 ## Web Development
 
-Built this portfolio website using Quarto!
+Built this portfolio website using [Quarto](https://quarto.org).
